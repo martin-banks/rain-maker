@@ -26,7 +26,7 @@ const { width, height } = canvas
 function rainDrop(id) {
 	return {
 		template() {
-			const radius = 5
+			const radius = 2
 			const x = this.coords[0]
 			const y = this.coords[1]
 
@@ -48,7 +48,7 @@ function rainDrop(id) {
 		},
 		remove() {},
 		coords: [Math.floor(Math.random() * width), 0],
-		speed: [0, (Math.floor(Math.random() * 5) + 1)],
+		speed: [0, ((Math.random() * 3) + 2)],
 		id,
 		active: true
 	}
@@ -65,10 +65,11 @@ function start() {
 	createRain()
 	drops.forEach(d => d.render())
 	setInterval(() => {
+		createRain()
 		ctx.clearRect(0,0,width,height)
 		drops.filter(d => d.active)
 		drops.forEach(d => d.update())
-	}, 32)
+	}, 16)
 	// drop.render()
 	// setInterval(() => {
 	// 	if (drop.active) {
@@ -78,4 +79,4 @@ function start() {
 	// }, 32)
 }
 
-start()
+// start()
