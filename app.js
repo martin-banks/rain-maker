@@ -1,33 +1,14 @@
 const app = document.querySelector('#app')
 const canvas = document.querySelector('canvas')
+const optionInput = document.querySelectorAll('.options input')
+
 const ctx = canvas.getContext('2d')
 canvas.width = '300'
 canvas.height = '300'
-console.log(ctx.__proto__)
 
 let x = -50
-
 const drops = []
-
 const { width, height } = canvas
-// function circle() {
-// 	setInterval(function(){
-// 		const radius = height / 4
-// 		const y = height / 2
-// 		ctx.clearRect(0, 0, width, height)
-// 		ctx.beginPath()
-// 		ctx.arc(x, y, radius, 0, 2*Math.PI)
-// 		ctx.stroke()
-// 		x++
-// 		if (x > canvas.width + 50) x = -50
-// 	}, 16)
-// }
-
-// function getInputValue(name) {
-// 	return [...optionInput]
-// 		.find(opt => opt.getAttribute('name') === name)
-// 		.value
-// }
 const options = {
 	speed: 0.5,
 	wind: 0,
@@ -40,17 +21,11 @@ function updateOptions(e) {
 	options[name] = value / 100
 	console.log(options)
 }
-const optionInput = document.querySelectorAll('.options input')
-optionInput.forEach(updateOptions)	
-
-
-console.log(options)
 
 optionInput.forEach(opt => {
+	updateOptions(opt)
 	opt.addEventListener('change', updateOptions)
 })
-
-// const baseSpeed = 3 * 1
 
 function rainDrop(id) {
 	return {
@@ -62,11 +37,9 @@ function rainDrop(id) {
 			ctx.beginPath()
 			ctx.arc(x, y, radius, 0, (2 * Math.PI))
 			ctx.stroke()
-			// console.log('template')
 		},
 		render() {
 			this.template()
-			// console.log('rendering')
 		},
 		update() {
 			if (this.coords[0] > width || this.coords[1] > height) {
@@ -100,13 +73,7 @@ function start() {
 		drops.filter(d => d.active)
 		drops.forEach(d => d.update())
 	}, interval)
-	// drop.render()
-	// setInterval(() => {
-	// 	if (drop.active) {
-	// 		drop.update()
-	// 	}
-	// 	// console.log(drop.coords)
-	// }, 32)
+
 }
 
-start()
+// start()
