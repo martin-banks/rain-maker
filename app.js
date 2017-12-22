@@ -1,11 +1,14 @@
 const app = document.querySelector('#app')
 const canvas = document.querySelector('canvas')
-const optionInput = document.querySelectorAll('.options input')
-
+const optionInput = document.querySelectorAll('.controls input')
+const buttons = {
+	run: document.querySelector('button.run'),
+	clear: document.querySelector('button.clear')
+}
 const ctx = canvas.getContext('2d')
 canvas.width = '300'
 canvas.height = '300'
-
+let active = false
 let x = -50
 const drops = []
 const { width, height } = canvas
@@ -62,18 +65,49 @@ function createRain() {
 	drops.push(...newDrops)
 }
 
+function clearCanvas() {
+	ctx.clearRect(0,0,width,height)
+	buttons.clear.setAttribute('data-show', false)
+}
+
+let loop = null
+
 function start() {
 	const interval = 16
 	const drop = rainDrop('test')
 	createRain()
+	buttons.clear.setAttribute('data-show', false)
 	drops.forEach(d => d.render())
-	setInterval(() => {
+	loop = setInterval(() => {
 		createRain()
-		ctx.clearRect(0,0,width,height)
+		clearCanvas()
 		drops.filter(d => d.active)
 		drops.forEach(d => d.update())
 	}, interval)
 
 }
 
-// start()
+function stop() {
+	clearInterval(loop)
+	buttons.clear.setAttribute('data-show', true)
+}
+
+
+function toggleAnimation() {
+	if (active) {
+		stop()
+		active = false
+		buttons.run.innerText = 'Start'
+		return
+	} else {
+		start()
+		buttons.clear.setAttribute('data-show', false)
+		active = true
+		buttons.run.innerText = 'Stop'
+		return
+	}
+}
+
+
+buttons.run.addEventListener('click', toggleAnimation)
+buttons.clear.addEventListener('click', clearCanvas)

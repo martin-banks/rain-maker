@@ -4,19 +4,24 @@ body {
 }
 canvas {
 	display: inline-block;
-	/* width: 100vw; */
-	/* height: 100vh; */
 	box-sizing: border-box;
 	border: solid 1px;
 }
 
-.options {
+.controls {
 	position: relative;
 	display: inline-block;
 	vertical-align: top;
 	width: 25%;
 }
 
-.options input {
-	width: 100%
+.controls input,
+.controls button {
+	width: 100%;
+	margin-bottom: 16px
+}
+
+
+[data-show=false] {
+	display: none
 }
