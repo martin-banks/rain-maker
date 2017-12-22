@@ -10,7 +10,7 @@ canvas.width = '300'
 canvas.height = '300'
 let active = false
 let x = -50
-const drops = []
+let drops = []
 const { width, height } = canvas
 const options = {
 	speed: 0.5,
@@ -30,30 +30,45 @@ optionInput.forEach(opt => {
 	opt.addEventListener('change', updateOptions)
 })
 
+
+let fillHeight = 0
+
 function rainDrop(id) {
+	const radius = 2
 	return {
 		template() {
-			const radius = 2
 			const x = this.coords[0]
 			const y = this.coords[1]
 
 			ctx.beginPath()
 			ctx.arc(x, y, radius, 0, (2 * Math.PI))
-			ctx.stroke()
+			ctx.rect(0, height - fillHeight, width, fillHeight)
+			// ctx.stroke()
+			ctx.fill()
 		},
 		render() {
 			this.template()
 		},
 		update() {
-			if (this.coords[0] > width || this.coords[1] > height) {
+			if (
+				this.coords[0] + radius >= width || 
+				this.coords[1] + radius >= (height - fillHeight)
+			) {
+				// console.log('stopping')
+				// this.render()
+				fillHeight += 0.01
 				this.active = false
+				return
 			}
 			this.coords = this.coords.map((c, i) => c + this.speed[i])
 			this.render()
 		},
 		remove() {},
 		coords: [Math.floor(Math.random() * width), 0],
-		speed: [(options.wind * ((Math.random() * 3) + 5)), (options.speed * ((Math.random() * 3) + 5))], //(0.5 * (Math.random() * 5))
+		speed: [
+			(options.wind * ((Math.random() * 3) + 5)), 
+			(options.speed * ((Math.random() * 3) + 5))
+		], //(0.5 * (Math.random() * 5))
 		id,
 		active: true
 	}
@@ -73,7 +88,7 @@ function clearCanvas() {
 let loop = null
 
 function start() {
-	const interval = 16
+	const interval = 32
 	const drop = rainDrop('test')
 	createRain()
 	buttons.clear.setAttribute('data-show', false)
@@ -81,8 +96,16 @@ function start() {
 	loop = setInterval(() => {
 		createRain()
 		clearCanvas()
-		drops.filter(d => d.active)
+		// const innactive = drops.reduce((output, drop, i) => {
+		// 	let update = output
+		// 	if (!drop.active) {
+		// 		update[i] = drop
+		// 	}
+		// 	return update
+		// }, {})
+		drops = drops.filter(d => d.active)
 		drops.forEach(d => d.update())
+
 	}, interval)
 
 }
