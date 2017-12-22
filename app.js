@@ -28,7 +28,6 @@ const { width, height } = canvas
 // 		.find(opt => opt.getAttribute('name') === name)
 // 		.value
 // }
-const optionInput = document.querySelectorAll('.options input')
 const options = {
 	speed: 0.5,
 	wind: 0,
@@ -36,10 +35,14 @@ const options = {
 }
 
 function updateOptions(e) {
-	const { name, value } = e.target
+	let { name, value } = e.target ? e.target : e
+	if (name === 'wind') value -= 50
 	options[name] = value / 100
 	console.log(options)
 }
+const optionInput = document.querySelectorAll('.options input')
+optionInput.forEach(updateOptions)	
+
 
 console.log(options)
 
