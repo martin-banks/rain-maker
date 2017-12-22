@@ -3,8 +3,20 @@ body {
 	margin: 0;
 }
 canvas {
+	display: inline-block;
 	/* width: 100vw; */
 	/* height: 100vh; */
 	box-sizing: border-box;
 	border: solid 1px;
+}
+
+.options {
+	position: relative;
+	display: inline-block;
+	vertical-align: top;
+	width: 25%;
+}
+
+.options input {
+	width: 100%
 }

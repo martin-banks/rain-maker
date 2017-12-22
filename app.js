@@ -23,6 +23,32 @@ const { width, height } = canvas
 // 	}, 16)
 // }
 
+// function getInputValue(name) {
+// 	return [...optionInput]
+// 		.find(opt => opt.getAttribute('name') === name)
+// 		.value
+// }
+const optionInput = document.querySelectorAll('.options input')
+const options = {
+	speed: 0.5,
+	wind: 0,
+	frequency: 0.1,
+}
+
+function updateOptions(e) {
+	const { name, value } = e.target
+	options[name] = value / 100
+	console.log(options)
+}
+
+console.log(options)
+
+optionInput.forEach(opt => {
+	opt.addEventListener('change', updateOptions)
+})
+
+// const baseSpeed = 3 * 1
+
 function rainDrop(id) {
 	return {
 		template() {
@@ -48,19 +74,20 @@ function rainDrop(id) {
 		},
 		remove() {},
 		coords: [Math.floor(Math.random() * width), 0],
-		speed: [0, ((Math.random() * 3) + 2)],
+		speed: [(options.wind * ((Math.random() * 3) + 5)), (options.speed * ((Math.random() * 3) + 5))], //(0.5 * (Math.random() * 5))
 		id,
 		active: true
 	}
 }
 
 function createRain() {
-	const newDrops = [... new Array(Math.floor(Math.random() * 10))]
+	const newDrops = [... new Array(Math.floor(Math.random() * 1.05 + (options.frequency * 10)))]
 		.map(x => rainDrop())
 	drops.push(...newDrops)
 }
 
 function start() {
+	const interval = 16
 	const drop = rainDrop('test')
 	createRain()
 	drops.forEach(d => d.render())
@@ -69,7 +96,7 @@ function start() {
 		ctx.clearRect(0,0,width,height)
 		drops.filter(d => d.active)
 		drops.forEach(d => d.update())
-	}, 16)
+	}, interval)
 	// drop.render()
 	// setInterval(() => {
 	// 	if (drop.active) {
@@ -79,4 +106,4 @@ function start() {
 	// }, 32)
 }
 
-// start()
+start()
