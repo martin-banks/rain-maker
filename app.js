@@ -13,7 +13,7 @@ let x = -50
 let drops = []
 const { width, height } = canvas
 const options = {
-	speed: 0.5,
+	speed: [0, 0.5],
 	wind: 0,
 	frequency: 0.1,
 }
@@ -35,18 +35,23 @@ let fillHeight = 0
 
 function rainDrop(id) {
 	const radius = 2
+	const getSpeed = () => options.speed
+	console.log(getSpeed())
 	return {
 		template() {
 			const x = this.coords[0]
 			const y = this.coords[1]
-
 			ctx.beginPath()
-			ctx.arc(x, y, radius, 0, (2 * Math.PI))
-			ctx.rect(0, height - fillHeight, width, fillHeight)
+			// ctx.arc(x, y, radius, 0, (2 * Math.PI))
+			ctx.rect(x, y, 2, (4 * this.speed[1]) + 1)
+			// ctx.rect()
 			// ctx.stroke()
 			ctx.fill()
 		},
 		render() {
+			ctx.beginPath()
+			ctx.rect(0, height - fillHeight, width, fillHeight)
+			ctx.fill()
 			this.template()
 		},
 		update() {
