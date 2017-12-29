@@ -71,7 +71,6 @@ body * {
 
 .wrapper {
 	flex: 1;
-	/* padding: 5vw; */
 	min-width: 300px
 }
 
@@ -86,15 +85,8 @@ canvas {
 	position: relative;
 	display: flex;
 	flex-direction: column;
-	/* display: inline-block; */
-	/* vertical-align: top; */
-	/* width: 50%; */
 	flex: 1;
-	/* padding: 5vw; */
-	/* border: solid 1px lime; */
-	/* top: 50%; */
-
-	/* padding: 5vw */
+	padding: 5vw;
 }
 
 .controls input,
