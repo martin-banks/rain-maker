@@ -42,7 +42,7 @@ function rainDrop(id) {
 	return {
 		speed() { return [
 			(options.wind * ((Math.random() * 3) + 5)), 
-			(options.speed * ((Math.random() * 3) + 5))
+			(options.speed * ((Math.random() * 3) + 5)) + 1
 		]},
 		id,
 		active: true,
