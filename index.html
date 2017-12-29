@@ -7,20 +7,47 @@
   <link rel="stylesheet" href="./app.css">
 </head>
 <body>
+  <div id="nav">
+    <div class="nav__left">
+      <a href="https://martinbanks.io">
+        <span>martinbanks.io</span>
+      </a>
+    </div>
+    <div class="nav__right">
+      <a href="https://github.com/martin-banks">
+        <img src="./images/github.svg" alt="github">
+      </a>
+      <a href="https://twitter.com/anotherbanksy">
+        <img src="./images/twitter.svg" alt="twitter">
+      </a>
+    </div>
+  </div>
+
   <div id="app">
-    <canvas id="rain"></canvas>
-    <div class="controls">
-      <label for="speed">Speed</label>
-      <input name="speed" type="range" value="50">
-      <hr />
-      <label for="wind">Wind</label>
-      <input name="wind" type="range" value="50">
-      <hr />
-      <label for="frequency">Frequency</label>
-      <input name="frequency" type="range" value="25">
-      <hr />
-      <button class="run">Start</button>
-      <button class="clear" data-show="false">Clear</button>
+    <div class="wrapper">
+      <div class="controls">
+        <div class="option__input">
+          <label for="speed">Speed</label>
+          <input name="speed" type="range" value="50">
+          <hr />
+        </div>
+        <div class="option__input">
+          <label for="wind">Wind</label>
+          <input name="wind" type="range" value="50">
+          <hr />
+        </div>
+        <div class="option__input">
+          <label for="frequency">Frequency</label>
+          <input name="frequency" type="range" value="25">
+          <hr />
+        </div>
+  
+        <button class="run">Start</button>
+        <button class="clear" data-show="false">Clear</button>
+      </div>
+    </div>
+    <div class="wrapper">
+      <canvas id="rain"></canvas>
     </div>
   </div>
 </body>

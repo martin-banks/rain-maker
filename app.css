@@ -1,26 +1,110 @@
 body {
-	padding: 0;
+	padding: 32px;
+	padding-top: 64px;
 	margin: 0;
 }
+
+body * {
+	box-sizing: border-box;
+	font-family: sans-serif;
+}
+
+#nav {
+	position: absolute;
+	display: flex;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 40px;
+	background: #333;
+	margin-bottom: 24px;
+	padding: 0 24px;
+}
+
+#nav a {
+	color: #e2e2e2;
+	text-decoration: none;
+	padding: 10px;
+	height: 100%;
+}
+
+#nav img {
+	width: auto;
+	height: 100%;
+}
+#nav span {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%)
+}
+
+.nav__right, 
+.nav__left {
+	position: relative;
+	flex: 1;
+	height: 100%;
+	color: #e2e2e2;
+}
+
+.nav__right {
+	text-align: right;
+	min-width: 100px;
+	max-width: 200px;
+}
+
+.nav__left {
+	text-align: left;
+	width: 100%
+}
+
+.nav__right > *, 
+.nav__left > * {
+	display: inline-block;
+	vertical-align: top;
+}
+
+
+#app {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.wrapper {
+	flex: 1;
+	/* padding: 5vw; */
+	min-width: 300px
+}
+
 canvas {
 	display: inline-block;
 	box-sizing: border-box;
 	border: solid 1px;
+	margin: 0 auto
 }
 
 .controls {
 	position: relative;
-	display: inline-block;
-	vertical-align: top;
-	width: 25%;
+	display: flex;
+	flex-direction: column;
+	/* display: inline-block; */
+	/* vertical-align: top; */
+	/* width: 50%; */
+	flex: 1;
+	/* padding: 5vw; */
+	/* border: solid 1px lime; */
+	/* top: 50%; */
+
+	/* padding: 5vw */
 }
 
 .controls input,
 .controls button {
 	width: 100%;
-	margin-bottom: 16px
+	margin-bottom: 16px;
 }
-
+.option__input {
+	flex: 1;
+}
 
 [data-show=false] {
 	display: none
