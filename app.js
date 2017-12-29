@@ -11,6 +11,7 @@ const buttons = {
 
 // SETUP 
 // Global values
+let mouseDown = false
 let active = false
 let x = -50
 let drops = []
@@ -39,10 +40,10 @@ function rainDrop(id) {
 	const radius = 2
 	const getHeight = () => (4 * options.speed) + 1
 	return {
-		speed: [
+		speed() { return [
 			(options.wind * ((Math.random() * 3) + 5)), 
 			(options.speed * ((Math.random() * 3) + 5))
-		],
+		]},
 		id,
 		active: true,
 		height: getHeight(),
@@ -71,7 +72,7 @@ function rainDrop(id) {
 				this.active = false
 				return
 			}
-			this.coords = this.coords.map((c, i) => c + this.speed[i])
+			this.coords = this.coords.map((c, i) => c + this.speed()[i])
 			this.render()
 		},
 		remove() {},
@@ -147,6 +148,16 @@ function updateOptions(e) {
 // Update the options from the UI elements and listen for future changes
 optionInput.forEach(opt => {
 	updateOptions(opt)
+	opt.addEventListener('mousedown', () => {
+		mouseDown = true
+	})
+	opt.addEventListener('mouseup', () => {
+		mouseDown = false
+	})
+	opt.addEventListener('mousemove', e => {
+		if (!mouseDown) return
+		updateOptions(e)
+	})
 	opt.addEventListener('change', updateOptions)
 })
 
