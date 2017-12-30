@@ -5,9 +5,10 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Rain maker</title>
   <link rel="stylesheet" href="./app.css">
+
 </head>
 <body>
-  <div id="nav">
+  <section id="nav">
     <div class="nav__left">
       <a href="https://martinbanks.io">
         <span>martinbanks.io</span>
@@ -21,25 +22,31 @@
         <img src="./images/twitter.svg" alt="twitter">
       </a>
     </div>
-  </div>
+  </section>
 
-  <div id="app">
+  
+  <section id="app">
     <div class="wrapper">
       <div class="controls">
+        <section class="intro">
+          <h4>Coding challenge</h4>
+          <h1>Canvas particle system</h1>
+          <p>Using HTML Canvas element, create a simple particle system to simulate rain where the speed, density and wind can be updated by the user</p>
+        </section>
         <div class="option__input">
           <label for="speed">Speed</label>
           <input name="speed" type="range" value="50">
-          <hr />
+          
         </div>
         <div class="option__input">
           <label for="wind">Wind</label>
           <input name="wind" type="range" value="50">
-          <hr />
+          
         </div>
         <div class="option__input">
           <label for="frequency">Frequency</label>
           <input name="frequency" type="range" value="25">
-          <hr />
+          
         </div>
   
         <button class="run">Start</button>
@@ -49,28 +56,12 @@
     <div class="wrapper">
       <canvas id="rain"></canvas>
     </div>
-  </div>
+  </section>
 </body>
 <script src="./app.js"></script>
+<script src="https://use.typekit.net/zkm0shg.js"></script>
+  <script>
+    try{Typekit.load({ async: true });}catch(e){}
+  </script>
 </html>
 
-
-
-
-
-
-<!-- 
-<!DOCTYPE html>
-<html>
-<body>
-
-<canvas id="myCanvas" width="200" height="100" style="border:1px solid #d3d3d3;">
-Your browser does not support the HTML5 canvas tag.</canvas>
-
-<script>
-
-
-</script> 
-
-</body>
-</html> -->

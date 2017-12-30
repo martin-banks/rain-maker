@@ -2,11 +2,46 @@ body {
 	padding: 32px;
 	padding-top: 64px;
 	margin: 0;
+	background: #f2f2f2;
+	background: linear-gradient(315deg, #ddd, #fefefe)
 }
 
 body * {
 	box-sizing: border-box;
 	font-family: sans-serif;
+}
+
+section.intro {
+	margin: 0;
+	margin-bottom: 48px;
+	padding: 32px 0;
+	/* border: solid 1px #e2e2e2; */
+	/* border-radius: 4px */
+}
+h4 {
+	display: table-cell;
+	margin: 0;
+	margin-bottom: 16px;
+	text-transform: uppercase;
+	font-size: 12px;
+	padding: 4px 8px;
+	background: #bada55;
+	border-radius: 4px;
+}
+
+h1 {
+	margin: 0;
+	margin-bottom: 24px;
+	margin-top: 4px;
+	font-size: 36px;
+	font-family: mislab-std, serif;
+	font-style: normal;
+	font-weight: 300;
+}
+
+p:last-of-type {
+	margin-bottom: 0
+	font-size: 14px;
 }
 
 #nav {
@@ -77,8 +112,11 @@ body * {
 canvas {
 	display: inline-block;
 	box-sizing: border-box;
-	border: solid 1px;
-	margin: 0 auto
+	/* border: solid 1px; */
+	margin: 0 auto;
+	background: #fff;
+	border-radius: 8px;
+	box-shadow: 0px 12px 42px -16px rgba(0,0,0, 1);
 }
 
 .controls {
@@ -86,7 +124,7 @@ canvas {
 	display: flex;
 	flex-direction: column;
 	flex: 1;
-	padding: 5vw;
+	padding: 0 5vw;
 }
 
 .controls input,
@@ -100,4 +138,24 @@ canvas {
 
 [data-show=false] {
 	display: none
+}
+
+
+button {
+	transition: all 300ms;
+	display: inline-block;
+	vertical-align: top;
+	padding: 8px 24px;
+	background: #fff;
+	border: solid 1px #ccc;
+	border-radius: 8px;
+	font-size: 14px;
+	max-width: 200px;
+	cursor: pointer;
+}
+
+button:hover {
+	background: #bada55;
+	transform: translateY(-6px);
+	box-shadow: 4px 10px 6px -8px rgba(0,0,0, 1);
 }
