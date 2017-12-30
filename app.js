@@ -37,19 +37,20 @@ const { width: cWidth, height: cHeight } = canvas
 // Returns an object for each drop with various methods for creating and updating
 // Also removes drop and updates the puddle when drop hits the bottom
 function rainDrop(id) {
-	const radius = 2
-	const getHeight = () => (4 * options.speed) + 1
+	// const radius = 4
+	const getHeight = () => ((4 * options.speed) + 1) * 3
 	return {
 		speed() { return [
-			(options.wind * ((Math.random() * 3) + 5)), 
-			(options.speed * ((Math.random() * 3) + 5)) + 1
+			options.wind * ((Math.random() * 3) + 5), 
+			(options.speed * ((Math.random() * 3) + 5) * 3) + 1
 		]},
 		id,
 		active: true,
 		height: getHeight(),
-		width: 2,
+		width: 3,
 		coords: [Math.floor(Math.random() * cWidth), 0 - getHeight()],
 		template() {
+			// this is the template for thedrop
 			const x = this.coords[0]
 			const y = this.coords[1]
 			ctx.beginPath()
@@ -58,20 +59,27 @@ function rainDrop(id) {
 			ctx.fill()
 		},
 		render() {
+			// first we update the drop
+			this.template()
+			// then update the 'puddle' at the bottom 
 			ctx.beginPath()
 			ctx.rect(0, cHeight - fillHeight, cWidth, fillHeight)
 			ctx.fill()
-			this.template()
 		},
 		update() {
+			// check if the drop is still in the screen (has not been 'blown' out by wind)
+			// and has not full submerged into the water
 			if (
-				this.coords[0] + radius >= cWidth || 
-				this.coords[1] + radius >= (cHeight - fillHeight)
+				this.coords[0] + this.width >= cWidth || 
+				this.coords[1] >= (cHeight - fillHeight)
 			) {
+				// if either is true then the drop has letf the stage and should be removed
 				fillHeight += 0.01
 				this.active = false
 				return
 			}
+			// if not true then the drop needs to be updated.
+			// update it's coords and call render method
 			this.coords = this.coords.map((c, i) => c + this.speed()[i])
 			this.render()
 		},
@@ -84,7 +92,7 @@ function rainDrop(id) {
 // Each entry is an instance of the rainDrop factory
 // This new array is spread into the main drops array fro updating later
 function createRain() {
-	const newDrops = [... new Array(Math.floor(Math.random() * 1.05 + (options.frequency * 10)))]
+	const newDrops = [... new Array(Math.floor(Math.random() * 1.05 + ((options.frequency + 0.05) * 10)))]
 		.map(x => rainDrop())
 	drops.push(...newDrops)
 }
@@ -140,7 +148,6 @@ function updateOptions(e) {
 	let { name, value } = e.target ? e.target : e
 	if (name === 'wind') value -= 50
 	options[name] = value / 100
-	console.log(options)
 }
 
 
