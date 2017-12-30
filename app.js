@@ -16,7 +16,7 @@ let active = false
 let x = -50
 let drops = []
 
-let fillHeight = 0
+let puddleHeight = 0
 let loop = null
 const landscape = window.innerWidth >= window.innerHeight ? true : false
 const sizeToUse = (landscape ? window.innerHeight : window.innerWidth) * 0.8
@@ -37,7 +37,7 @@ const { width: cWidth, height: cHeight } = canvas
 // MAIN RAIN DROP FACTORY
 // Returns an object for each drop with various methods for creating and updating
 // Also removes drop and updates the puddle when drop hits the bottom
-function rainDrop(id) {
+function rainDrop() {
 	// const radius = 4
 	const getHeight = () => ((4 * options.speed) + 1) * 3
 	return {
@@ -45,7 +45,6 @@ function rainDrop(id) {
 			options.wind * ((Math.random() * 3) + 5), 
 			(options.speed * ((Math.random() * 3) + 5) * 3) + 1
 		]},
-		id,
 		active: true,
 		height: getHeight(),
 		width: 3,
@@ -68,11 +67,14 @@ function rainDrop(id) {
 			// and has not full submerged into the water
 			if (
 				this.coords[0] + this.width >= cWidth || 
-				this.coords[1] >= (cHeight - fillHeight)
+				this.coords[1] >= (cHeight - puddleHeight)
 			) {
-				// if either is true then the drop has letf the stage and should be removed
-				fillHeight += 0.01
+				// if either is true then the drop has lefr the stage and should be removed
+				// then update the height of the puddle height for that drop joining it
+				puddleHeight += 0.03
+				// and make the drop innactive. This is used to filter out innactive drops later
 				this.active = false
+				// return to stop the drop updating further
 				return
 			}
 			// if not true then the drop needs to be updated.
@@ -85,8 +87,10 @@ function rainDrop(id) {
 }
 
 function updatePuddle() {
+	// get the value from puddleHeight to add and update the 
+	// height of a puddle block at the bottom of the canvas
 	ctx.beginPath()
-	ctx.rect(0, cHeight - fillHeight, cWidth, fillHeight)
+	ctx.rect(0, cHeight - puddleHeight, cWidth, puddleHeight)
 	ctx.fill()
 }
 
@@ -109,18 +113,24 @@ function clearCanvas() {
 
 // Making it rain
 function start() {
-	const interval = 32
-	const drop = rainDrop('test')
+	const frameRate = 32
+	// const drop = rainDrop()
 	createRain()
 	buttons.clear.setAttribute('data-show', false)
 	drops.forEach(d => d.render())
 	loop = setInterval(() => {
+		// For every tick of animation ...
+		// create a new array to render as new drops
 		createRain()
+		// canvas should be cleared out to draw fresh
 		clearCanvas()
+		// filter out any drops that have hit the bottom or drifted out of frame
 		drops = drops.filter(d => d.active)
+		// update all of the drops
 		drops.forEach(d => d.update())
+		// update the puddle height
 		updatePuddle()
-	}, interval)
+	}, frameRate)
 }
 
 // Stopping the rain
