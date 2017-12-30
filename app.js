@@ -15,6 +15,7 @@ let mouseDown = false
 let active = false
 let x = -50
 let drops = []
+
 let fillHeight = 0
 let loop = null
 const landscape = window.innerWidth >= window.innerHeight ? true : false
@@ -61,10 +62,6 @@ function rainDrop(id) {
 		render() {
 			// first we update the drop
 			this.template()
-			// then update the 'puddle' at the bottom 
-			ctx.beginPath()
-			ctx.rect(0, cHeight - fillHeight, cWidth, fillHeight)
-			ctx.fill()
 		},
 		update() {
 			// check if the drop is still in the screen (has not been 'blown' out by wind)
@@ -85,6 +82,12 @@ function rainDrop(id) {
 		},
 		remove() {},
 	}
+}
+
+function updatePuddle() {
+	ctx.beginPath()
+	ctx.rect(0, cHeight - fillHeight, cWidth, fillHeight)
+	ctx.fill()
 }
 
 // MAKING RAIN DROPS
@@ -116,6 +119,7 @@ function start() {
 		clearCanvas()
 		drops = drops.filter(d => d.active)
 		drops.forEach(d => d.update())
+		updatePuddle()
 	}, interval)
 }
 
